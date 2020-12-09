@@ -1,54 +1,59 @@
 package com.example.onlineshop.model;
 
-import com.google.gson.annotations.SerializedName;
+
+import com.example.onlineshop.nerwork.model.CategoriesItem;
+import com.example.onlineshop.nerwork.model.ImagesItem;
 
 import java.util.List;
 
 public class Product {
 
-    @SerializedName("id")
     private long mId;
-    @SerializedName("name")
     private String mName;
-    @SerializedName("permalink")
     private String mPermaLink;
-    @SerializedName("date_created")
     private String mDateCreate;
-    @SerializedName("description")
     private String mDescription;
-    @SerializedName("price")
     private String mPrice;
-    @SerializedName("on_sale")
     private boolean mOnSale;
-    @SerializedName("total_sales")
     private int mTotalSale;
-    @SerializedName("purchasable")
     private boolean mPurchasable;
-    @SerializedName("average_rating")
     private String mAverageRating;
-    @SerializedName("related_ids")
-    private List<Long> mRelatedIds;
-    @SerializedName("images")
-    private List<Images> mImages;
-    @SerializedName("categories")
-    private List<ProductCategory> mProductCategories;
+    private List<Integer> mRelatedIds;
+    private List<ImagesItem> mImages;
+    private List<CategoriesItem> mProductCategories;
 
-    public Product() {
+    public Product(long id, String name, String permaLink, String dateCreate, String description,
+                   String price, boolean onSale, int totalSale, boolean purchasable,
+                   String averageRating, List<Integer> relatedIds, List<ImagesItem> images,
+                   List<CategoriesItem> productCategories) {
+        mId = id;
+        mName = name;
+        mPermaLink = permaLink;
+        mDateCreate = dateCreate;
+        mDescription = description;
+        mPrice = price;
+        mOnSale = onSale;
+        mTotalSale = totalSale;
+        mPurchasable = purchasable;
+        mAverageRating = averageRating;
+        mRelatedIds = relatedIds;
+        mImages = images;
+        mProductCategories = productCategories;
     }
 
-    public List<Images> getImages() {
+    public List<ImagesItem> getImages() {
         return mImages;
     }
 
-    public void setImages(List<Images> images) {
+    public void setImages(List<ImagesItem> images) {
         mImages = images;
     }
 
-    public List<ProductCategory> getProductCategories() {
+    public List<CategoriesItem> getProductCategories() {
         return mProductCategories;
     }
 
-    public void setProductCategories(List<ProductCategory> productCategories) {
+    public void setProductCategories(List<CategoriesItem> productCategories) {
         mProductCategories = productCategories;
     }
 
@@ -132,11 +137,11 @@ public class Product {
         mAverageRating = averageRating;
     }
 
-    public List<Long> getRelatedIds() {
+    public List<Integer> getRelatedIds() {
         return mRelatedIds;
     }
 
-    public void setRelatedIds(List<Long> relatedIds) {
+    public void setRelatedIds(List<Integer> relatedIds) {
         mRelatedIds = relatedIds;
     }
 }
