@@ -1,7 +1,7 @@
 package com.example.onlineshop.nerwork;
 
 
-import com.example.onlineshop.nerwork.model.MainResponse;
+import com.example.onlineshop.model.MainResponse;
 
 import java.util.Map;
 
