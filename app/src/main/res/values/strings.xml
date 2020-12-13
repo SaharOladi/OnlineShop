@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">OnlineShop</string>
-    <string name="query_hint">جست و جو در دیجیکالا</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="query_hint">جستجو در دیجی کالا</string>
     <string name="home_page">خانه</string>
     <string name="category">دسته بندی ها</string>
     <string name="shopping_bag">سبد خرید</string>
     <string name="profile">دیجی کالای من</string>
+    <string name="digiKala">دیجی کالا</string>
 
 
 
