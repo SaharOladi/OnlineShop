@@ -23,8 +23,8 @@
             android:id="@+id/search_product"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layoutDirection="rtl"
             android:iconifiedByDefault="false"
+            android:layoutDirection="rtl"
             android:queryBackground="@android:color/transparent"
             android:queryHint="@string/query_hint" />
 
@@ -43,47 +43,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layoutDirection="rtl"
+        app:menu="@menu/navigation_menu"
         tools:layout_editor_absoluteX="44dp"
         tools:layout_editor_absoluteY="153dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <ImageButton
-                android:id="@+id/home"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:src="@drawable/ic_homepage" />
-
-            <ImageButton
-                android:id="@+id/classification"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:src="@drawable/ic_homepage" />
-
-            <ImageButton
-                android:id="@+id/shopping_bag"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:src="@drawable/ic_homepage" />
-
-            <ImageButton
-                android:id="@+id/user"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:src="@drawable/ic_homepage" />
-        </LinearLayout>
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 </LinearLayout>
