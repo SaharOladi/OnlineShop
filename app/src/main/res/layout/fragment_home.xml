@@ -15,7 +15,7 @@
         tools:context=".view.HomePageFragment">
 
         <include
-            android:id="@+id/imageSlider"
+            android:id="@+id/imageSliderView"
             layout="@layout/slider_image_view" />
 
 
