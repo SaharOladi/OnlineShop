@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +29,7 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private List<ProductsItem> mProductsItems;
+    private List<ImagesItem> mImagesItems = new ArrayList<>();
     private Repository mRepository;
 
 
@@ -47,10 +50,12 @@ public class HomeFragment extends Fragment {
 
         mRepository = new Repository();
 
-        mRepository.fetchItemsAsync(new Repository.Callbacks() {
+        mRepository.fetchAllProductItemsAsync(new Repository.Callbacks() {
             @Override
             public void onItemResponse(List<ProductsItem> items) {
                 setupAdapter(items);
+                mImagesItems.addAll(items.get(0).getImages());
+                Log.d(TAG, "onItemResponse: " + mImagesItems.size());
             }
         });
     }

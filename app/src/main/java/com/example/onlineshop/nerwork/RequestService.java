@@ -17,13 +17,13 @@ public interface RequestService {
     @GET("products/")
     Call<List<ProductsItem>> getProducts(@QueryMap Map<String, String> map);
 
-    @GET("products/{id}/?")
+    @GET("products/{id}/")
     Call<ProductsItem> getProduct(@Path("id") long productId);
 
-    @GET("categories/?")
+    @GET("categories/")
     Call<ProductsItem> getCategories(@QueryMap Map<String, String> map);
 
-    @GET("images/?")
+    @GET("images/")
     Call<ProductsItem> getImages(@QueryMap Map<String, String> map);
 
 

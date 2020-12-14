@@ -38,31 +38,7 @@ public class Repository {
         mRequestService = RetrofitInstance.getInstance().create(RequestService.class);
     }
 
-//    public List<ProductsItem> fetchProduct() {
-//
-//        Call<MainResponse> call = mRequestService.getProducts(NetworkParam.BASE);
-//        List<ProductsItem> products = new ArrayList<>();
-//
-//        call.enqueue(new Callback<MainResponse>() {
-//            @Override
-//            public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-//                if (response.isSuccessful()) {
-//                    List<ProductsItem> productsItems = response.body().getProducts();
-//                    products.addAll(productsItems);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MainResponse> call, Throwable t) {
-//                Log.e(TAG, "onFailure: ");
-//            }
-//        });
-//        return products;
-//
-//    }
-
-
-    public void fetchItemsAsync(Callbacks callBacks) {
+    public void fetchAllProductItemsAsync(Callbacks callBacks) {
         Call<List<ProductsItem>> call = mRequestService.getProducts(NetworkParam.BASE);
         call.enqueue(new Callback<List<ProductsItem>>() {
             @Override
