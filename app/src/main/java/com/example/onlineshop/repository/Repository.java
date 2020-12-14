@@ -1,5 +1,9 @@
 package com.example.onlineshop.repository;
 
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.nerwork.NetworkParam;
@@ -12,12 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Repository {
 
     private List<ProductsItem> mProducts;
     private RequestService mRequestService;
+
+    private final String TAG = "Repository";
 
     public List<ProductsItem> getProducts() {
         return mProducts;
@@ -31,28 +38,49 @@ public class Repository {
         mRequestService = RetrofitInstance.getInstance().create(RequestService.class);
     }
 
-    public List<ProductsItem> fetchProduct() {
-
-        Call<MainResponse> call = mRequestService.getProducts(NetworkParam.PRODUCT);
-        List<ProductsItem> products = new ArrayList<>();
-
-        try {
-            Response<MainResponse> response = call.execute();
-            MainResponse mainResponse = response.body();
-            for (ProductsItem productsItem : mainResponse.getProducts()) {
-//                ProductsItem product = new ProductsItem(productsItem.getId(), productsItem.getName(),
-//                        productsItem.getPermalink(), productsItem.getDateCreated(), productsItem.getDescription(),
-//                        productsItem.getPrice(), productsItem.isOnSale(), productsItem.getTotalSales(),
-//                        productsItem.isPurchasable(), productsItem.getAverageRating(), productsItem.getRelatedIds(),
-//                        productsItem.getImages(), productsItem.getCategories());
+//    public List<ProductsItem> fetchProduct() {
 //
-//                products.add(product);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            return products;
+//        Call<MainResponse> call = mRequestService.getProducts(NetworkParam.BASE);
+//        List<ProductsItem> products = new ArrayList<>();
+//
+//        call.enqueue(new Callback<MainResponse>() {
+//            @Override
+//            public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
+//                if (response.isSuccessful()) {
+//                    List<ProductsItem> productsItems = response.body().getProducts();
+//                    products.addAll(productsItems);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MainResponse> call, Throwable t) {
+//                Log.e(TAG, "onFailure: ");
+//            }
+//        });
+//        return products;
+//
+//    }
 
-        }
+
+    public void fetchItemsAsync(Callbacks callBacks) {
+        Call<List<ProductsItem>> call = mRequestService.getProducts(NetworkParam.BASE);
+        call.enqueue(new Callback<List<ProductsItem>>() {
+            @Override
+            public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
+                List<ProductsItem> items = response.body();
+                //update adapter of recyclerview
+                callBacks.onItemResponse(items);
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductsItem>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+
+            }
+        });
+    }
+
+    public interface Callbacks {
+        void onItemResponse(List<ProductsItem> items);
     }
 }
