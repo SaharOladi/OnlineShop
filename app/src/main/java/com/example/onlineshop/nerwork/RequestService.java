@@ -20,7 +20,7 @@ public interface RequestService {
     @GET("products/{id}/")
     Call<ProductsItem> getProduct(@Path("id") long productId);
 
-    @GET("categories/")
+    @GET("products/categories/")
     Call<ProductsItem> getCategories(@QueryMap Map<String, String> map);
 
 

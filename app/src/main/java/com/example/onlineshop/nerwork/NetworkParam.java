@@ -1,7 +1,6 @@
 package com.example.onlineshop.nerwork;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class NetworkParam {
 
@@ -11,12 +10,6 @@ public class NetworkParam {
 
     public static final String USER_NAME = "sahar.olady@gmail.com";
     public static final String PASSWORD = "xV6T5dGJ3bBa";
-
-    public static final Map<String, String> BASE = new HashMap<String, String>() {{
-        put("consumer_key", CONSUMER_KEY);
-        put("consumer_secret", CONSUMER_SECRET);
-
-    }};
 
 
 }

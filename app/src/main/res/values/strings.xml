@@ -9,10 +9,12 @@
     <string name="digiKala">دیجی کالا</string>
 
     <string name="recent_products">جدیدترین</string>
-    <string name="more_watched_products">پربازدیدترین</string>
+    <string name="most_visited_products">پربازدیدترین</string>
     <string name="top_rated_products">بیشترین امتیاز</string>
 
     <string name="product_price">قیمت :</string>
+    <string name="product_name">نام کالا</string>
+
 
 
 
