@@ -23,8 +23,6 @@ public interface RequestService {
     @GET("categories/")
     Call<ProductsItem> getCategories(@QueryMap Map<String, String> map);
 
-    @GET("images/")
-    Call<ProductsItem> getImages(@QueryMap Map<String, String> map);
 
 
 

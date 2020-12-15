@@ -1,4 +1,4 @@
-package com.example.onlineshop;
+package com.example.onlineshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.onlineshop.R;
 
 public class SplashActivity extends AppCompatActivity {
 

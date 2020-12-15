@@ -1,10 +1,12 @@
-package com.example.onlineshop;
+package com.example.onlineshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.example.onlineshop.R;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 

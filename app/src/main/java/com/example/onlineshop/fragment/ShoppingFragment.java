@@ -1,4 +1,4 @@
-package com.example.onlineshop;
+package com.example.onlineshop.fragment;
 
 import android.os.Bundle;
 
@@ -8,15 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class CategoryFragment extends Fragment {
+import com.example.onlineshop.R;
+
+public class ShoppingFragment extends Fragment {
 
 
-    public CategoryFragment() {
+    public ShoppingFragment() {
         // Required empty public constructor
     }
 
-    public static CategoryFragment newInstance() {
-        CategoryFragment fragment = new CategoryFragment();
+    public static ShoppingFragment newInstance() {
+        ShoppingFragment fragment = new ShoppingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -25,13 +27,12 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        return inflater.inflate(R.layout.fragment_shopping, container, false);
     }
 }
