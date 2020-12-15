@@ -1,6 +1,7 @@
 package com.example.onlineshop.nerwork;
 
 
+import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
 
@@ -21,7 +22,7 @@ public interface RequestService {
     Call<ProductsItem> getProduct(@Path("id") long productId);
 
     @GET("products/categories/")
-    Call<ProductsItem> getCategories(@QueryMap Map<String, String> map);
+    Call<List<CategoriesItem>> getCategories(@QueryMap Map<String, String> map);
 
 
 

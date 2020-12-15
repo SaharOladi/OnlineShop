@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.nerwork.NetworkParam;
@@ -138,10 +139,35 @@ public class Repository {
         });
     }
 
+    public void fetchCategory(int page, CategoryCallbacks callBacks) {
+        HashMap<String, String> localMap = new HashMap<>();
+
+        localMap.putAll(BASE);
+        localMap.put("page", String.valueOf(page));
+        localMap.put("per_page", String.valueOf(20));
+
+        mRequestService.getCategories(localMap).enqueue(new Callback<List<CategoriesItem>>() {
+            @Override
+            public void onResponse(Call<List<CategoriesItem>> call, Response<List<CategoriesItem>> response) {
+                List<CategoriesItem> categoriesItems = response.body();
+                //update adapter of recyclerview
+                callBacks.onItemResponse(categoriesItems);
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoriesItem>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+
+            }
+        });
+    }
 
 
     public interface Callbacks {
         void onItemResponse(List<ProductsItem> items);
     }
 
+    public interface CategoryCallbacks {
+        void onItemResponse(List<CategoriesItem> items);
+    }
 }
