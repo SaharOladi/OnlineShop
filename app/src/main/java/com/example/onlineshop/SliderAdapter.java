@@ -2,6 +2,7 @@ package com.example.onlineshop;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     public class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
-        private ImageView imageViewBackground, imageGifContainer;
+        private ImageView imageViewBackground;
         private TextView textViewDescription;
         private ImagesItem mImageItem;
         private View mItemView;
@@ -67,23 +68,23 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
         private void findHolderViews(View itemView) {
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
-            imageGifContainer = itemView.findViewById(R.id.iv_gif_container);
             textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
             mItemView = itemView;
         }
 
         private void bindImageItem(SliderAdapterVH holder, ImagesItem image) {
             mImageItem = image;
-            if (!mImageItem.getName().equals(null)) {
-                holder.textViewDescription.setText(mImageItem.getName());
-                holder.textViewDescription.setTextSize(16);
-                holder.textViewDescription.setTextColor(Color.WHITE);
+
+            if (!image.getName().equals(null)) {
+                textViewDescription.setText(image.getName());
+                textViewDescription.setTextSize(16);
+                textViewDescription.setTextColor(Color.BLACK);
             }
 
-            Glide.with(holder.itemView)
-                    .load("https://woocommerce.maktabsharif.ir/wp-content/uploads/2020/01/301302.jpg")
+            Glide.with(mItemView)
+                    .load(image.getSrc())
                     .fitCenter()
-                    .into(holder.imageViewBackground);
+                    .into(imageViewBackground);
 
         }
 
