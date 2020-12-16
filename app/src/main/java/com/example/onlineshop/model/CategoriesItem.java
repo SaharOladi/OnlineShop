@@ -13,6 +13,12 @@ public class CategoriesItem {
     @SerializedName("slug")
     private String slug;
 
+    @SerializedName("image")
+    private ImagesItem mImages;
+
+    @SerializedName("count")
+    private Integer mCount;
+
     public String getName() {
         return name;
     }
@@ -23,6 +29,14 @@ public class CategoriesItem {
 
     public String getSlug() {
         return slug;
+    }
+
+    public ImagesItem getImages() {
+        return mImages;
+    }
+
+    public Integer getCount() {
+        return mCount;
     }
 
 }

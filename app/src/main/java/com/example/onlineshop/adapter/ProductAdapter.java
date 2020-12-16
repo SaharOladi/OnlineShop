@@ -17,7 +17,7 @@ import com.example.onlineshop.model.ProductsItem;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.RecyclerHolder> {
 
     private Context mContext;
     private List<ProductsItem> mProductsItem;
@@ -32,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         notifyDataSetChanged();
     }
 
-    public RecyclerAdapter(Context context, List<ProductsItem> productsItem) {
+    public ProductAdapter(Context context, List<ProductsItem> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
     }

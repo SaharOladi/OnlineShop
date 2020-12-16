@@ -144,7 +144,7 @@ public class Repository {
 
         localMap.putAll(BASE);
         localMap.put("page", String.valueOf(page));
-        localMap.put("per_page", String.valueOf(20));
+        localMap.put("per_page", String.valueOf(10));
 
         mRequestService.getCategories(localMap).enqueue(new Callback<List<CategoriesItem>>() {
             @Override

@@ -2,7 +2,7 @@ package com.example.onlineshop.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TagsItem{
+public class TagsItem {
 
     @SerializedName("name")
     private String name;
@@ -13,15 +13,17 @@ public class TagsItem{
     @SerializedName("slug")
     private String slug;
 
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public String getSlug(){
+    public String getSlug() {
         return slug;
     }
+
 }

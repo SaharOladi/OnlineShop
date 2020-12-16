@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 
 import com.example.onlineshop.R;
-import com.example.onlineshop.adapter.RecyclerAdapter;
+import com.example.onlineshop.adapter.ProductAdapter;
 import com.example.onlineshop.adapter.SliderAdapter;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
@@ -37,9 +37,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerViewRatedProduct;
 
 
-    private RecyclerAdapter mRecentRecyclerAdapter;
-    private RecyclerAdapter mMostVisitedRecyclerAdapter;
-    private RecyclerAdapter mRatedRecyclerAdapter;
+    private ProductAdapter mRecentProductAdapter;
+    private ProductAdapter mMostVisitedProductAdapter;
+    private ProductAdapter mRatedProductAdapter;
 
 
 
@@ -139,34 +139,34 @@ public class HomeFragment extends Fragment {
 
     public void updateRecentRecyclerAdapter(List<ProductsItem> productsItems) {
 
-        if (mRecentRecyclerAdapter == null) {
-            mRecentRecyclerAdapter = new RecyclerAdapter(getContext(), productsItems);
-            mRecyclerViewRecentProduct.setAdapter(mRecentRecyclerAdapter);
+        if (mRecentProductAdapter == null) {
+            mRecentProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mRecyclerViewRecentProduct.setAdapter(mRecentProductAdapter);
         } else {
-            mRecentRecyclerAdapter.setProductsItem(productsItems);
-            mRecentRecyclerAdapter.notifyDataSetChanged();
+            mRecentProductAdapter.setProductsItem(productsItems);
+            mRecentProductAdapter.notifyDataSetChanged();
         }
     }
 
     public void updateMostVisitedRecyclerAdapter(List<ProductsItem> productsItems) {
 
-        if (mMostVisitedRecyclerAdapter == null) {
-            mMostVisitedRecyclerAdapter = new RecyclerAdapter(getContext(), productsItems);
-            mRecyclerViewMostVisitedProduct.setAdapter(mMostVisitedRecyclerAdapter);
+        if (mMostVisitedProductAdapter == null) {
+            mMostVisitedProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mRecyclerViewMostVisitedProduct.setAdapter(mMostVisitedProductAdapter);
         } else {
-            mMostVisitedRecyclerAdapter.setProductsItem(productsItems);
-            mMostVisitedRecyclerAdapter.notifyDataSetChanged();
+            mMostVisitedProductAdapter.setProductsItem(productsItems);
+            mMostVisitedProductAdapter.notifyDataSetChanged();
         }
     }
 
     public void updateRatedRecyclerAdapter(List<ProductsItem> productsItems) {
 
-        if (mRatedRecyclerAdapter == null) {
-            mRatedRecyclerAdapter = new RecyclerAdapter(getContext(), productsItems);
-            mRecyclerViewRatedProduct.setAdapter(mRatedRecyclerAdapter);
+        if (mRatedProductAdapter == null) {
+            mRatedProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mRecyclerViewRatedProduct.setAdapter(mRatedProductAdapter);
         } else {
-            mRatedRecyclerAdapter.setProductsItem(productsItems);
-            mRatedRecyclerAdapter.notifyDataSetChanged();
+            mRatedProductAdapter.setProductsItem(productsItems);
+            mRatedProductAdapter.notifyDataSetChanged();
         }
     }
 
