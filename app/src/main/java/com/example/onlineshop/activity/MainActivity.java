@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.onlineshop.adapter.CategoryAdapter;
 import com.example.onlineshop.fragment.CategoryFragment;
+import com.example.onlineshop.fragment.CategoryListFragment;
 import com.example.onlineshop.fragment.HomeFragment;
 import com.example.onlineshop.R;
 import com.example.onlineshop.fragment.ShoppingFragment;
@@ -17,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainActivity";
     private BottomNavigationView mBottomNavigationView;
 
     public static Intent newIntent(Context context) {
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private void findViews() {
         mBottomNavigationView = findViewById(R.id.navigation_button);
     }
+
 
 
 }

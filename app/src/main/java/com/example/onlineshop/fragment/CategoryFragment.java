@@ -23,7 +23,7 @@ import com.example.onlineshop.repository.Repository;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener {
 
     public static final String TAG = "CategoryFragment";
     public static final int SPAN_COUNT = 3;
@@ -99,4 +99,11 @@ public class CategoryFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCategoryClick(int id) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, CategoryListFragment.newInstance(id))
+                .commit();
+        Log.d(TAG, "onCategoryClick: "+id);
+    }
 }
