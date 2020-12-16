@@ -41,7 +41,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public RecyclerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.home_page_view_holder, parent, false);
+                .inflate(R.layout.product_view_holder, parent, false);
 
         return new RecyclerHolder(view);
     }
