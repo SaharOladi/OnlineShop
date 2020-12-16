@@ -1,9 +1,10 @@
 package com.example.onlineshop.model;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductsItem{
+public class ProductsItem implements Serializable {
 
     @SerializedName("upsell_ids")
     private List<Object> upsellIds;

@@ -12,12 +12,13 @@
     <string name="most_visited_products">پربازدیدترین</string>
     <string name="top_rated_products">بیشترین امتیاز</string>
 
-    <string name="product_price">قیمت :</string>
+    <string name="product_price">قیمت:</string>
+    <string name="add_bag">افزودن به سبد خرید</string>
     <string name="product_name">نام کالا</string>
+    <string name="product_description">جزییات:</string>
     <string name="category_name">دسته کالا</string>
     <string name="progress_bar">در حال لود شدن...</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

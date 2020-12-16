@@ -8,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.onlineshop.R;
+import com.example.onlineshop.fragment.CategoryListFragment;
+import com.example.onlineshop.fragment.ProductDetailFragment;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
 
@@ -50,6 +53,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
     public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
         ProductsItem productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, ProductDetailFragment.newInstance(productItem))
+                        .commit();
+
+            }
+        });
     }
 
     @Override
@@ -69,20 +82,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
             super(itemView);
 
             findHolderViews(itemView);
-            setListeners();
 
         }
 
-        private void setListeners() {
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-        }
 
         private void findHolderViews(@NonNull View itemView) {
             mName = itemView.findViewById(R.id.product_name);
