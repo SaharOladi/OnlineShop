@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setupSliderAdapter(List<ImagesItem> imagesItems) {
+     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
         mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mSliderAdapter);
 
