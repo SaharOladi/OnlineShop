@@ -162,6 +162,52 @@ public class Repository {
         });
     }
 
+    public void fetchCategoryProduct(int page, int id, Callbacks callBacks) {
+        HashMap<String, String> localMap = new HashMap<>();
+
+        localMap.putAll(BASE);
+        localMap.put("page", String.valueOf(page));
+        localMap.put("category", String.valueOf(id));
+
+        mRequestService.getProducts(localMap).enqueue(new Callback<List<ProductsItem>>() {
+            @Override
+            public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
+
+                List<ProductsItem> categoryItems = response.body();
+                //update adapter of recyclerview
+                callBacks.onItemResponse(categoryItems);
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductsItem>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+            }
+        });
+    }
+
+
+    public void fetchSingleProduct(int id, SingleCallbacks callBacks) {
+        HashMap<String, String> localMap = new HashMap<>();
+
+        localMap.putAll(BASE);
+
+        mRequestService.getSingleProduct(id, localMap).enqueue(new Callback<ProductsItem>() {
+            @Override
+            public void onResponse(Call<ProductsItem> call, Response<ProductsItem> response) {
+
+                ProductsItem productsItem = response.body();
+                //update adapter of recyclerview
+                callBacks.onItemResponse(productsItem);
+            }
+
+            @Override
+            public void onFailure(Call<ProductsItem> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+            }
+        });
+    }
+
+
 
     public interface Callbacks {
         void onItemResponse(List<ProductsItem> items);
@@ -170,4 +216,9 @@ public class Repository {
     public interface CategoryCallbacks {
         void onItemResponse(List<CategoriesItem> items);
     }
+
+    public interface SingleCallbacks {
+        void onItemResponse(ProductsItem item);
+    }
+
 }

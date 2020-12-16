@@ -19,12 +19,10 @@ public interface RequestService {
     Call<List<ProductsItem>> getProducts(@QueryMap Map<String, String> map);
 
     @GET("products/{id}/")
-    Call<ProductsItem> getProduct(@Path("id") long productId);
+    Call<ProductsItem> getSingleProduct(@Path("id") int productId,@QueryMap Map<String, String> map);
 
     @GET("products/categories/")
     Call<List<CategoriesItem>> getCategories(@QueryMap Map<String, String> map);
-
-
 
 
 
