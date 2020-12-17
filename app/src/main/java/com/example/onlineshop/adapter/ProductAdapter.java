@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,12 +20,15 @@ import com.example.onlineshop.fragment.ProductDetailFragment;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.RecyclerHolder> {
 
     private Context mContext;
     private List<ProductsItem> mProductsItem;
+    private List<ProductsItem> mSearchProductsItem;
 
 
     public List<ProductsItem> getProductsItem() {
@@ -32,12 +37,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
 
     public void setProductsItem(List<ProductsItem> productsItem) {
         mProductsItem = productsItem;
+        if (productsItem != null)
+            this.mSearchProductsItem = new ArrayList<>(productsItem);
         notifyDataSetChanged();
     }
 
     public ProductAdapter(Context context, List<ProductsItem> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
+        mSearchProductsItem = new ArrayList<>(productsItem);
+
     }
 
     @NonNull
@@ -96,8 +105,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
         }
 
         private void bindProduct(ProductsItem productItem) {
-            mName.setText(productItem.getName()+"");
-            mPrice.setText(productItem.getPrice()+"");
+            mName.setText(productItem.getName() + "");
+            mPrice.setText(productItem.getPrice() + "");
             List<ImagesItem> imagesItems = productItem.getImages();
             Glide.with(mItemView)
                     .load(imagesItems.get(0).getSrc())

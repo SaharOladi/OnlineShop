@@ -3,13 +3,21 @@ package com.example.onlineshop.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 
 import com.example.onlineshop.R;
@@ -22,6 +30,8 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 
@@ -32,6 +42,7 @@ public class HomeFragment extends Fragment {
     private SliderView mSliderView;
     private SliderAdapter mSliderAdapter;
 
+
     private RecyclerView mRecyclerViewRecentProduct;
     private RecyclerView mRecyclerViewMostVisitedProduct;
     private RecyclerView mRecyclerViewRatedProduct;
@@ -40,6 +51,7 @@ public class HomeFragment extends Fragment {
     private ProductAdapter mRecentProductAdapter;
     private ProductAdapter mMostVisitedProductAdapter;
     private ProductAdapter mRatedProductAdapter;
+
 
 
 
@@ -60,6 +72,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         mRepository = new Repository();
 
@@ -102,6 +115,7 @@ public class HomeFragment extends Fragment {
 
         findViews(view);
 
+
         return view;
     }
 
@@ -110,6 +124,7 @@ public class HomeFragment extends Fragment {
         mRecyclerViewRecentProduct = view.findViewById(R.id.recent_recycler_product);
         mRecyclerViewMostVisitedProduct = view.findViewById(R.id.most_visited_recycler_product);
         mRecyclerViewRatedProduct = view.findViewById(R.id.top_rated_recycler_product);
+
     }
 
     private void initRecentRecyclerAdapter(List<ProductsItem> productsItems) {
@@ -136,6 +151,7 @@ public class HomeFragment extends Fragment {
 
         updateRatedRecyclerAdapter(productsItems);
     }
+
 
     public void updateRecentRecyclerAdapter(List<ProductsItem> productsItems) {
 
@@ -170,7 +186,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
+    private void setupSliderAdapter(List<ImagesItem> imagesItems) {
         mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mSliderAdapter);
 
@@ -186,5 +202,6 @@ public class HomeFragment extends Fragment {
         mSliderView.setScrollTimeInSec(4);
         mSliderView.startAutoCycle();
     }
+
 
 }

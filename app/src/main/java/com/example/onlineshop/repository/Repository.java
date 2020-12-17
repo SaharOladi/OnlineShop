@@ -70,13 +70,13 @@ public class Repository {
     }
 
     public void fetchRecentProducts(int page, Callbacks callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
+        HashMap<String, String> insideMap = new HashMap<>();
 
-        localMap.putAll(BASE);
-        localMap.put("page", String.valueOf(page));
-        localMap.put("orderby", "date");
+        insideMap.putAll(BASE);
+        insideMap.put("page", String.valueOf(page));
+        insideMap.put("orderby", "date");
 
-        mRequestService.getProducts(localMap).enqueue(new Callback<List<ProductsItem>>() {
+        mRequestService.getProducts(insideMap).enqueue(new Callback<List<ProductsItem>>() {
             @Override
             public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
 
@@ -94,13 +94,13 @@ public class Repository {
 
 
     public void fetchMostVisitedProducts(int page, Callbacks callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
+        HashMap<String, String> insideMap = new HashMap<>();
 
-        localMap.putAll(BASE);
-        localMap.put("page", String.valueOf(page));
-        localMap.put("orderby", "rating");
+        insideMap.putAll(BASE);
+        insideMap.put("page", String.valueOf(page));
+        insideMap.put("orderby", "rating");
 
-        mRequestService.getProducts(localMap).enqueue(new Callback<List<ProductsItem>>() {
+        mRequestService.getProducts(insideMap).enqueue(new Callback<List<ProductsItem>>() {
             @Override
             public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
 
@@ -117,13 +117,13 @@ public class Repository {
     }
 
     public void fetchRatedProducts(int page, Callbacks callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
+        HashMap<String, String> insideMap = new HashMap<>();
 
-        localMap.putAll(BASE);
-        localMap.put("page", String.valueOf(page));
-        localMap.put("orderby", "popularity");
+        insideMap.putAll(BASE);
+        insideMap.put("page", String.valueOf(page));
+        insideMap.put("orderby", "popularity");
 
-        mRequestService.getProducts(localMap).enqueue(new Callback<List<ProductsItem>>() {
+        mRequestService.getProducts(insideMap).enqueue(new Callback<List<ProductsItem>>() {
             @Override
             public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
 
@@ -140,13 +140,13 @@ public class Repository {
     }
 
     public void fetchCategory(int page, CategoryCallbacks callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
+        HashMap<String, String> insideMap = new HashMap<>();
 
-        localMap.putAll(BASE);
-        localMap.put("page", String.valueOf(page));
-        localMap.put("per_page", String.valueOf(10));
+        insideMap.putAll(BASE);
+        insideMap.put("page", String.valueOf(page));
+        insideMap.put("per_page", String.valueOf(10));
 
-        mRequestService.getCategories(localMap).enqueue(new Callback<List<CategoriesItem>>() {
+        mRequestService.getCategories(insideMap).enqueue(new Callback<List<CategoriesItem>>() {
             @Override
             public void onResponse(Call<List<CategoriesItem>> call, Response<List<CategoriesItem>> response) {
                 List<CategoriesItem> categoriesItems = response.body();
@@ -187,11 +187,11 @@ public class Repository {
 
 
     public void fetchSingleProduct(int id, SingleCallbacks callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
+        HashMap<String, String> insideMap = new HashMap<>();
 
-        localMap.putAll(BASE);
+        insideMap.putAll(BASE);
 
-        mRequestService.getSingleProduct(id, localMap).enqueue(new Callback<ProductsItem>() {
+        mRequestService.getSingleProduct(id, insideMap).enqueue(new Callback<ProductsItem>() {
             @Override
             public void onResponse(Call<ProductsItem> call, Response<ProductsItem> response) {
 
@@ -206,6 +206,30 @@ public class Repository {
             }
         });
     }
+
+
+    public void fetchSearchProducts(String query, Callbacks callBacks) {
+
+        HashMap<String, String> insideMap = new HashMap<>();
+
+        insideMap.putAll(BASE);
+        insideMap.put("search", query);
+
+        mRequestService.getProducts(insideMap).enqueue(new Callback<List<ProductsItem>>() {
+            @Override
+            public void onResponse(Call<List<ProductsItem>> call, Response<List<ProductsItem>> response) {
+                List<ProductsItem> searchItems = response.body();
+                //update adapter of recyclerview
+                callBacks.onItemResponse(searchItems);
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductsItem>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+            }
+        });
+    }
+
 
 
 

@@ -88,7 +88,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.OnCate
         updateCategoryRecyclerAdapter(categoriesItems);
     }
 
-    public void updateCategoryRecyclerAdapter(List<CategoriesItem> categoriesItems) {
+    private void updateCategoryRecyclerAdapter(List<CategoriesItem> categoriesItems) {
 
         if (mProductAdapterCategory == null) {
             mProductAdapterCategory = new CategoryAdapter(getContext(), categoriesItems);

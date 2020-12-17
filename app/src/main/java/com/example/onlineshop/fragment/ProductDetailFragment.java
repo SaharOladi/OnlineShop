@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapter.SliderAdapter;
 import com.example.onlineshop.model.ImagesItem;
@@ -36,6 +38,7 @@ public class ProductDetailFragment extends Fragment {
 
     private TextView mPrice, mRegularPrice, mFinalePrice, mDescription;
     private Button mAddToBag;
+    private ImageView mSingleImageProduct;
 
 
 
@@ -78,6 +81,7 @@ public class ProductDetailFragment extends Fragment {
         mFinalePrice = view.findViewById(R.id.product_final_price);
         mDescription = view.findViewById(R.id.product_description);
         mAddToBag = view.findViewById(R.id.add_bag_shop);
+        mSingleImageProduct = view.findViewById(R.id.image_view_main_picture);
     }
 
     private void initViews(){
@@ -86,7 +90,10 @@ public class ProductDetailFragment extends Fragment {
         mFinalePrice.setText(mProduct.getSalePrice()+"");
         mDescription.setText(mProduct.getDescription()+"");
         setupSliderAdapter(mProduct.getImages());
-
+        Glide.with(mSingleImageProduct)
+                .load(mProduct.getImages().get(0).getSrc())
+                .fitCenter()
+                .into(mSingleImageProduct);
     }
 
     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
