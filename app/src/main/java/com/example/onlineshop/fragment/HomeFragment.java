@@ -1,8 +1,10 @@
 package com.example.onlineshop.fragment;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -32,12 +36,15 @@ import com.smarteist.autoimageslider.SliderView;
 
 import org.w3c.dom.Text;
 
+import java.nio.file.Watchable;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
+    public static final int SPAN_COUNT = 2;
 
     private SliderView mSliderView;
     private SliderAdapter mSliderAdapter;
@@ -46,12 +53,21 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerViewRecentProduct;
     private RecyclerView mRecyclerViewMostVisitedProduct;
     private RecyclerView mRecyclerViewRatedProduct;
+    private RecyclerView mRecyclerView;
 
 
     private ProductAdapter mRecentProductAdapter;
     private ProductAdapter mMostVisitedProductAdapter;
     private ProductAdapter mRatedProductAdapter;
+    private ProductAdapter mProductAdapter;
 
+
+    private EditText mSearch;
+    private TextView mNew, mRate, mMost;
+    private List<ProductsItem> mAllProductsItems = new ArrayList<>();
+    private List<ProductsItem> mRecentProductItems = new ArrayList<>();
+    private List<ProductsItem> mRatedProductItems = new ArrayList<>();
+    private List<ProductsItem> mMostVisitedProductsItems = new ArrayList<>();
 
 
 
@@ -80,6 +96,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemResponse(List<ProductsItem> items) {
                 setupSliderAdapter(items.get(0).getImages());
+                initRecyclerAdapter(items);
             }
         });
 
@@ -104,7 +121,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
     }
 
     @Override
@@ -115,8 +131,35 @@ public class HomeFragment extends Fragment {
 
         findViews(view);
 
+        setSearchListener();
+
+
 
         return view;
+    }
+
+    private void setSearchListener() {
+        mSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filter(s.toString());
+                returnToRoot();
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+                returnToRoot();
+            }
+        });
+
     }
 
     private void findViews(View view) {
@@ -124,6 +167,11 @@ public class HomeFragment extends Fragment {
         mRecyclerViewRecentProduct = view.findViewById(R.id.recent_recycler_product);
         mRecyclerViewMostVisitedProduct = view.findViewById(R.id.most_visited_recycler_product);
         mRecyclerViewRatedProduct = view.findViewById(R.id.top_rated_recycler_product);
+        mRecyclerView = view.findViewById(R.id.search_recyclerView);
+        mSearch = view.findViewById(R.id.search_query);
+        mNew = view.findViewById(R.id.text_new);
+        mMost = view.findViewById(R.id.text_most);
+        mRate = view.findViewById(R.id.text_rate);
 
     }
 
@@ -134,6 +182,7 @@ public class HomeFragment extends Fragment {
 
 
         updateRecentRecyclerAdapter(productsItems);
+        mRecentProductItems = productsItems;
     }
 
     private void initMostVisitedRecyclerAdapter(List<ProductsItem> productsItems) {
@@ -142,6 +191,7 @@ public class HomeFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false));
 
         updateMostVisitedRecyclerAdapter(productsItems);
+        mMostVisitedProductsItems = productsItems;
     }
 
     private void initRatedRecyclerAdapter(List<ProductsItem> productsItems) {
@@ -150,6 +200,7 @@ public class HomeFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false));
 
         updateRatedRecyclerAdapter(productsItems);
+        mRatedProductItems = productsItems;
     }
 
 
@@ -186,7 +237,28 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void initRecyclerAdapter(List<ProductsItem> productsItems) {
+
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
+
+        updateRecyclerAdapter(productsItems);
+        mAllProductsItems = productsItems;
+    }
+
+    public void updateRecyclerAdapter(List<ProductsItem> productsItems) {
+
+        if (mProductAdapter == null) {
+            mProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mRecyclerView.setAdapter(mProductAdapter);
+        } else {
+            mProductAdapter.setProductsItem(productsItems);
+            mProductAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
+
+
         mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mSliderAdapter);
 
@@ -202,6 +274,51 @@ public class HomeFragment extends Fragment {
         mSliderView.setScrollTimeInSec(4);
         mSliderView.startAutoCycle();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    private void filter(String query) {
+        List<ProductsItem> searchList = new ArrayList<>();
+        if (mProductAdapter != null && !query.equals(null)) {
+            for (ProductsItem productsItem :mAllProductsItems) {
+                if (productsItem.getName().toLowerCase().contains(query.toLowerCase()))
+                    searchList.add(productsItem);
+            }
+            mProductAdapter.filterList(searchList);
+            mRecyclerViewRecentProduct.setVisibility(View.GONE);
+            mRecyclerViewRatedProduct.setVisibility(View.GONE);
+            mRecyclerViewMostVisitedProduct.setVisibility(View.GONE);
+            mSliderView.setVisibility(View.GONE);
+            mNew.setVisibility(View.GONE);
+            mMost.setVisibility(View.GONE);
+            mRate.setVisibility(View.GONE);
+
+            mRecyclerView.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mRecyclerView.setForegroundGravity(Gravity.CENTER);
+            }
+
+        }
+        Log.d(TAG, "filter: "+mAllProductsItems.size());
+
+    }
+
+    private void returnToRoot(){
+        if(mSearch.length()==0){
+            mRecyclerViewRecentProduct.setVisibility(View.VISIBLE);
+            initRecentRecyclerAdapter(mRecentProductItems);
+            mRecyclerViewRatedProduct.setVisibility(View.VISIBLE);
+            initRatedRecyclerAdapter(mRatedProductItems);
+            mRecyclerViewMostVisitedProduct.setVisibility(View.VISIBLE);
+            initMostVisitedRecyclerAdapter(mMostVisitedProductsItems);
+            mSliderView.setVisibility(View.VISIBLE);
+            mNew.setVisibility(View.VISIBLE);
+            mMost.setVisibility(View.VISIBLE);
+            mRate.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
+    }
+
 
 
 }

@@ -79,6 +79,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
         return mProductsItem.size();
     }
 
+    public void filterList(List<ProductsItem> productsItem){
+        mProductsItem = productsItem;
+        notifyDataSetChanged();
+    }
+
 
     public class RecyclerHolder extends RecyclerView.ViewHolder {
 
