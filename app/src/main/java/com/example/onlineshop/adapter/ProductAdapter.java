@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.RecyclerHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.RecyclerHolder> implements Filterable {
 
     private Context mContext;
     private List<ProductsItem> mProductsItem;
@@ -79,9 +79,38 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
         return mProductsItem.size();
     }
 
-    public void filterList(List<ProductsItem> productsItem){
-        mProductsItem = productsItem;
-        notifyDataSetChanged();
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<ProductsItem> filteredList = new ArrayList<>();
+
+                if (charSequence.toString().isEmpty()) {
+                    filteredList.addAll(mSearchProductsItem);
+                } else {
+                    for (ProductsItem productsItem : mSearchProductsItem) {
+                        if (productsItem.getName().toLowerCase().trim().contains(charSequence.toString().toLowerCase().trim())) {
+                            filteredList.add(productsItem);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                if (mProductsItem != null)
+                    mProductsItem.clear();
+                if (filterResults.values != null)
+                    mProductsItem.addAll((Collection<? extends ProductsItem>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
 

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:padding="4dp"
-        app:cardBackgroundColor="#F16464"
+        app:cardBackgroundColor="@color/digikala_splash"
         app:cardCornerRadius="8dp">
 
         <ImageView

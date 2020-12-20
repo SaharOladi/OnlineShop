@@ -18,27 +18,25 @@ import com.example.onlineshop.repository.Repository;
 
 import java.util.List;
 
+public class SearchFragment extends Fragment {
 
-public class CategoryListFragment extends Fragment{
-
-
-    public static final String ARGS_ID = "ARGS_ID";
+    public static final String ARGS_QUERY = "ARGS_QUERY";
     public static final int SPAN_COUNT = 2;
 
-    private RecyclerView mRecyclerView;
-    private ProductAdapter mAdapter;
+    private RecyclerView mRecyclerViewSearch;
+    private ProductAdapter mProductAdapter;
     private Repository mRepository;
+    private String mQuery;
 
-    private int mCategoryId = 0;
 
-    public CategoryListFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static CategoryListFragment newInstance(int id) {
-        CategoryListFragment fragment = new CategoryListFragment();
+    public static SearchFragment newInstance(String query) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_ID, id);
+        args.putSerializable(ARGS_QUERY, query);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,45 +45,44 @@ public class CategoryListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCategoryId = (int) getArguments().get(ARGS_ID);
         mRepository = new Repository();
-        mRepository.fetchCategoryProduct(1, mCategoryId, new Repository.Callbacks() {
-            @Override
-            public void onItemResponse(List<ProductsItem> items) {
-                initRecyclerAdapter(items);
-            }
-        });
+        mQuery = (String) getArguments().get(ARGS_QUERY);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_category_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
         findViews(view);
+        mRepository.fetchSearchProducts(mQuery, new Repository.Callbacks() {
+            @Override
+            public void onItemResponse(List<ProductsItem> items) {
+                initRecyclerAdapter(items);
+            }
+        });
 
         return view;
     }
 
     private void findViews(View view) {
-        mRecyclerView = view.findViewById(R.id.category_product_recyclerview);
+        mRecyclerViewSearch = view.findViewById(R.id.search_recycler_product);
     }
 
     private void initRecyclerAdapter(List<ProductsItem> productsItems) {
-
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
-
+        mRecyclerViewSearch.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
         updateRecyclerAdapter(productsItems);
     }
 
-    public void updateRecyclerAdapter(List<ProductsItem> productsItems) {
-
-        if (mAdapter == null) {
-            mAdapter = new ProductAdapter(getContext(), productsItems);
-            mRecyclerView.setAdapter(mAdapter);
+    private void updateRecyclerAdapter(List<ProductsItem> productsItems) {
+        if (mProductAdapter == null) {
+            mProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mRecyclerViewSearch.setAdapter(mProductAdapter);
         } else {
-            mAdapter.setProductsItem(productsItems);
-            mAdapter.notifyDataSetChanged();
+            mProductAdapter.setProductsItem(productsItems);
+            mProductAdapter.notifyDataSetChanged();
         }
     }
 }

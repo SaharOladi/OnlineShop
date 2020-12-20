@@ -56,7 +56,6 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
     public class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
         private ImageView imageViewBackground;
-        private TextView textViewDescription;
         private ImagesItem mImageItem;
         private View mItemView;
 
@@ -67,18 +66,12 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
         private void findHolderViews(View itemView) {
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
-            textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
             mItemView = itemView;
         }
 
         private void bindImageItem(SliderAdapterVH holder, ImagesItem image) {
             mImageItem = image;
 
-            if (!image.getName().equals(null)) {
-                textViewDescription.setText(image.getName());
-                textViewDescription.setTextSize(16);
-                textViewDescription.setTextColor(Color.BLACK);
-            }
 
             Glide.with(mItemView)
                     .load(image.getSrc())
