@@ -18,7 +18,7 @@ import com.example.onlineshop.repository.Repository;
 
 import java.util.List;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements OnBackPressed{
 
     public static final String ARGS_QUERY = "ARGS_QUERY";
     public static final int SPAN_COUNT = 2;
@@ -84,5 +84,10 @@ public class SearchFragment extends Fragment {
             mProductAdapter.setProductsItem(productsItems);
             mProductAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

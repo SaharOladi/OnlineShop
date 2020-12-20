@@ -23,7 +23,7 @@ import com.example.onlineshop.repository.Repository;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener {
+public class CategoryFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, OnBackPressed {
 
     public static final String TAG = "CategoryFragment";
     public static final int SPAN_COUNT = 3;
@@ -105,5 +105,10 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.OnCate
                 .replace(R.id.fragment_container, CategoryListFragment.newInstance(id))
                 .commit();
         Log.d(TAG, "onCategoryClick: "+id);
+    }
+
+    @Override
+    public void onBackPressed() {
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 }

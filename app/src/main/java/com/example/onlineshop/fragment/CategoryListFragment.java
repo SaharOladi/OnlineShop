@@ -19,7 +19,7 @@ import com.example.onlineshop.repository.Repository;
 import java.util.List;
 
 
-public class CategoryListFragment extends Fragment{
+public class CategoryListFragment extends Fragment implements OnBackPressed{
 
 
     public static final String ARGS_ID = "ARGS_ID";
@@ -87,5 +87,10 @@ public class CategoryListFragment extends Fragment{
             mAdapter.setProductsItem(productsItems);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 }

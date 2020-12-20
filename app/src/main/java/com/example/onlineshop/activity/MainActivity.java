@@ -2,35 +2,21 @@ package com.example.onlineshop.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
-import android.widget.TextView;
 
-import com.example.onlineshop.adapter.CategoryAdapter;
-import com.example.onlineshop.adapter.ProductAdapter;
 import com.example.onlineshop.fragment.CategoryFragment;
-import com.example.onlineshop.fragment.CategoryListFragment;
 import com.example.onlineshop.fragment.HomeFragment;
 import com.example.onlineshop.R;
 import com.example.onlineshop.fragment.ShoppingFragment;
 import com.example.onlineshop.fragment.UserFragment;
-import com.example.onlineshop.model.CategoriesItem;
-import com.example.onlineshop.model.ProductsItem;
-import com.example.onlineshop.repository.Repository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 
-import static com.example.onlineshop.fragment.CategoryFragment.SPAN_COUNT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -104,5 +90,8 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView = findViewById(R.id.navigation_button);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

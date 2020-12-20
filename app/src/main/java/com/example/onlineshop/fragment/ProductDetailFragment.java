@@ -18,14 +18,19 @@ import com.example.onlineshop.adapter.SliderAdapter;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.repository.Repository;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
+
 import java.util.List;
 
 
-public class ProductDetailFragment extends Fragment {
+public class ProductDetailFragment extends Fragment implements OnBackPressed{
 
 
     public static final String ARGS_PRODUCT = "ARGS_PRODUCT_DETAIL";
@@ -39,7 +44,7 @@ public class ProductDetailFragment extends Fragment {
     private TextView mPrice, mRegularPrice, mFinalePrice, mDescription;
     private Button mAddToBag;
     private ImageView mSingleImageProduct;
-
+    private BottomNavigationView mBottomNavigationView;
 
 
     public ProductDetailFragment() {
@@ -78,22 +83,44 @@ public class ProductDetailFragment extends Fragment {
         mSliderView = view.findViewById(R.id.imageSlider);
         mPrice = view.findViewById(R.id.product_detail_price);
         mRegularPrice = view.findViewById(R.id.product_regular_price);
-        mFinalePrice = view.findViewById(R.id.product_final_price);
         mDescription = view.findViewById(R.id.product_description);
-        mAddToBag = view.findViewById(R.id.add_bag_shop);
         mSingleImageProduct = view.findViewById(R.id.image_view_main_picture);
+        mFinalePrice = view.findViewById(R.id.final_price);
+        mAddToBag = view.findViewById(R.id.add_to_shop);
+
+        mBottomNavigationView = getActivity().findViewById(R.id.navigation_button);
+//        mBottomNavigationView.setVisibility(View.GONE);
     }
 
-    private void initViews(){
+    private void initViews() {
         mPrice.setText(mProduct.getPrice());
-        mRegularPrice.setText(mProduct.getRegularPrice()+"");
-        mFinalePrice.setText(mProduct.getSalePrice()+"");
-        mDescription.setText(mProduct.getDescription()+"");
+        mRegularPrice.setText(mProduct.getRegularPrice() + "");
+
+        if (!mProduct.getSalePrice().equals(null))
+            mFinalePrice.setText(mProduct.getSalePrice() + "");
+        else
+            mFinalePrice.setText(mProduct.getRegularPrice() + "");
+
+        mDescription.setText(getDescription());
+
         setupSliderAdapter(mProduct.getImages());
+
         Glide.with(mSingleImageProduct)
                 .load(mProduct.getImages().get(0).getSrc())
                 .fitCenter()
                 .into(mSingleImageProduct);
+    }
+
+    private String getDescription() {
+        String description = mProduct.getDescription();
+        if (description.equals(null))
+            return description;
+        Document document = Jsoup.parse(description);
+        document.outputSettings(new Document.OutputSettings().prettyPrint(false));
+        document.select("br").append("\\n");
+        document.select("p").prepend("\\n\\n");
+        String s = document.html().replaceAll("\\\\n", "\n");
+        return Jsoup.clean(s, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false));
     }
 
     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
@@ -114,4 +141,8 @@ public class ProductDetailFragment extends Fragment {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 }

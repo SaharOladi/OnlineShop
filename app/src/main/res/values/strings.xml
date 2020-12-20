@@ -15,7 +15,7 @@
     <string name="product_price">قیمت:</string>
     <string name="add_bag">افزودن به سبد خرید</string>
     <string name="product_name">نام کالا</string>
-    <string name="product_description">جزییات:</string>
+    <string name="product_description">توضیحات:</string>
     <string name="category_name">دسته کالا</string>
     <string name="progress_bar">در حال لود شدن...</string>
     <string name="search_query">دسته یا محصول </string>
