@@ -245,4 +245,8 @@ public class Repository {
         void onItemResponse(ProductsItem item);
     }
 
+    public interface ServerCallbacks{
+        void onItemResponse(ProductsItem item);
+    }
+
 }
