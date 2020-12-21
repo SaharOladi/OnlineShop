@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlineshop.model.CategoriesItem;
+import com.example.onlineshop.model.Customer;
 import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.nerwork.NetworkParam;
@@ -24,6 +25,7 @@ import retrofit2.Response;
 
 import static com.example.onlineshop.nerwork.NetworkParam.CONSUMER_KEY;
 import static com.example.onlineshop.nerwork.NetworkParam.CONSUMER_SECRET;
+import static com.example.onlineshop.nerwork.NetworkParam.USER_NAME;
 
 public class Repository {
 
@@ -231,6 +233,24 @@ public class Repository {
     }
 
 
+    public void SendCustomer(ServerCallbacks serverCallbacks) {
+
+        HashMap<String, String> insideMap = new HashMap<>();
+        Customer customer = new Customer("sahar_oladi", USER_NAME);
+        insideMap.putAll(BASE);
+
+        mRequestService.createCustomer(insideMap, customer).enqueue(new Callback<Customer>() {
+            @Override
+            public void onResponse(Call<Customer> call, Response<Customer> response) {
+                serverCallbacks.onItemResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Customer> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+            }
+        });
+    }
 
 
     public interface Callbacks {
@@ -245,8 +265,8 @@ public class Repository {
         void onItemResponse(ProductsItem item);
     }
 
-    public interface ServerCallbacks{
-        void onItemResponse(ProductsItem item);
+    public interface ServerCallbacks {
+        void onItemResponse(Customer item);
     }
 
 }

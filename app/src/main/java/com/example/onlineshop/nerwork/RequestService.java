@@ -2,6 +2,7 @@ package com.example.onlineshop.nerwork;
 
 
 import com.example.onlineshop.model.CategoriesItem;
+import com.example.onlineshop.model.Customer;
 import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
 
@@ -9,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -24,6 +27,8 @@ public interface RequestService {
     @GET("products/categories/")
     Call<List<CategoriesItem>> getCategories(@QueryMap Map<String, String> map);
 
+    @POST("customers/")
+    Call<Customer> createCustomer(@QueryMap Map<String, String> map, @Body Customer customer);
 
 
 }
