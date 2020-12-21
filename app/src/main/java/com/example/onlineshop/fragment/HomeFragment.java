@@ -32,7 +32,7 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnBackPressed{
+public class HomeFragment extends Fragment{
 
     public static final String TAG = "HomeFragment";
 
@@ -186,8 +186,4 @@ public class HomeFragment extends Fragment implements OnBackPressed{
 
     }
 
-    @Override
-    public void onBackPressed() {
-        getActivity().getSupportFragmentManager().popBackStack();
-    }
 }
