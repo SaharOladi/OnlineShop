@@ -6,16 +6,17 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragment.UserFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <EditText
+            android:id="@+id/registeration"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="user" />
+            android:layout_height="wrap_content"
+            android:hint="enter sth....."
+            android:textColor="@color/black"/>
 
-    </FrameLayout>
+    </LinearLayout>
 </layout>

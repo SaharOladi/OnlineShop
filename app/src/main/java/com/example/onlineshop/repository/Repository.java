@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 import static com.example.onlineshop.nerwork.NetworkParam.CONSUMER_KEY;
 import static com.example.onlineshop.nerwork.NetworkParam.CONSUMER_SECRET;
-import static com.example.onlineshop.nerwork.NetworkParam.USER_NAME;
+import static com.example.onlineshop.nerwork.NetworkParam.EMAIL;
 
 public class Repository {
 
@@ -231,13 +231,14 @@ public class Repository {
     public void SendCustomer(ServerCallbacks serverCallbacks) {
 
         HashMap<String, String> insideMap = new HashMap<>();
-        Customer customer = new Customer("sahar_oladi", USER_NAME);
+        Customer customer = new Customer("sahar_oladi", EMAIL, 999999);
         insideMap.putAll(BASE);
 
         mRequestService.createCustomer(insideMap, customer).enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
                 serverCallbacks.onItemResponse(response.body());
+                Log.d(TAG, "onResponse: ");
             }
 
             @Override

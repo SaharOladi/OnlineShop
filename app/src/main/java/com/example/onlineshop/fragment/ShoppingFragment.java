@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapter.CardAdapter;
@@ -73,7 +74,7 @@ public class ShoppingFragment extends Fragment {
                 mRepository.SendCustomer(new Repository.ServerCallbacks() {
                     @Override
                     public void onItemResponse(Customer item) {
-
+                        Toast.makeText(getContext(), "this is toast", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

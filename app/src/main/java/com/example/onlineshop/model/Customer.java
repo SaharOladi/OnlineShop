@@ -16,6 +16,12 @@ public class Customer {
         mEmail = email;
     }
 
+    public Customer(String userName, String email, int id) {
+        mUserName = userName;
+        mEmail = email;
+        mId = id;
+    }
+
     public String getUserName() {
         return mUserName;
     }
