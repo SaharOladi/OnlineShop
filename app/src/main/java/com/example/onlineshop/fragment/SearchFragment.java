@@ -72,13 +72,13 @@ public class SearchFragment extends Fragment implements OnBackPressed{
     }
 
     private void initRecyclerAdapter(List<ProductsItem> productsItems) {
-        mRecyclerViewSearch.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
+        mRecyclerViewSearch.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
         updateRecyclerAdapter(productsItems);
     }
 
     private void updateRecyclerAdapter(List<ProductsItem> productsItems) {
         if (mProductAdapter == null) {
-            mProductAdapter = new ProductAdapter(getContext(), productsItems);
+            mProductAdapter = new ProductAdapter(getActivity(), productsItems);
             mRecyclerViewSearch.setAdapter(mProductAdapter);
         } else {
             mProductAdapter.setProductsItem(productsItems);

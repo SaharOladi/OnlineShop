@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment implements OnBackPressed{
                                      ProductAdapter productAdapter,
                                      List<ProductsItem> productsItems) {
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false));
 
         updateRecyclerAdapter(recyclerView, productAdapter, productsItems);
@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment implements OnBackPressed{
                                        List<ProductsItem> productsItems) {
 
         if (productAdapter == null) {
-            productAdapter = new ProductAdapter(getContext(), productsItems);
+            productAdapter = new ProductAdapter(getActivity(), productsItems);
             recyclerView.setAdapter(productAdapter);
         } else {
             productAdapter.setProductsItem(productsItems);
@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment implements OnBackPressed{
 
     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
 
-        mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
+        mSliderAdapter = new SliderAdapter(getActivity(), imagesItems);
         mSliderView.setSliderAdapter(mSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
@@ -172,7 +172,7 @@ public class HomeFragment extends Fragment implements OnBackPressed{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, SearchFragment.newInstance(query))
                         .commit();
                 return false;

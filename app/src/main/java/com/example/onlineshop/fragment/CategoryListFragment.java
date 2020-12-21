@@ -73,7 +73,7 @@ public class CategoryListFragment extends Fragment implements OnBackPressed{
 
     private void initRecyclerAdapter(List<ProductsItem> productsItems) {
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
 
         updateRecyclerAdapter(productsItems);
     }
@@ -81,7 +81,7 @@ public class CategoryListFragment extends Fragment implements OnBackPressed{
     public void updateRecyclerAdapter(List<ProductsItem> productsItems) {
 
         if (mAdapter == null) {
-            mAdapter = new ProductAdapter(getContext(), productsItems);
+            mAdapter = new ProductAdapter(getActivity(), productsItems);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setProductsItem(productsItems);

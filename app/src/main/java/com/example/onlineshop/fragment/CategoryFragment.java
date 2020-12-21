@@ -84,14 +84,14 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.OnCate
 
     private void initCategoryRecyclerAdapter(List<CategoriesItem> categoriesItems) {
 
-        mRecyclerViewCategory.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
+        mRecyclerViewCategory.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
         updateCategoryRecyclerAdapter(categoriesItems);
     }
 
     private void updateCategoryRecyclerAdapter(List<CategoriesItem> categoriesItems) {
 
         if (mProductAdapterCategory == null) {
-            mProductAdapterCategory = new CategoryAdapter(getContext(), categoriesItems);
+            mProductAdapterCategory = new CategoryAdapter(getActivity(), categoriesItems);
             mRecyclerViewCategory.setAdapter(mProductAdapterCategory);
         } else {
             mProductAdapterCategory.setCategoriesItem(categoriesItems);

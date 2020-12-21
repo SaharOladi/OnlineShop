@@ -3,6 +3,7 @@ package com.example.onlineshop.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.onlineshop.adapter.SliderAdapter;
 import com.example.onlineshop.model.ImagesItem;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.repository.Repository;
+import com.example.onlineshop.utils.ShoppingPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -30,7 +32,7 @@ import org.jsoup.safety.Whitelist;
 import java.util.List;
 
 
-public class ProductDetailFragment extends Fragment implements OnBackPressed{
+public class ProductDetailFragment extends Fragment implements OnBackPressed {
 
 
     public static final String ARGS_PRODUCT = "ARGS_PRODUCT_DETAIL";
@@ -76,6 +78,8 @@ public class ProductDetailFragment extends Fragment implements OnBackPressed{
 
         findViews(view);
         initViews();
+        setListener();
+
         return view;
     }
 
@@ -123,8 +127,20 @@ public class ProductDetailFragment extends Fragment implements OnBackPressed{
         return Jsoup.clean(s, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false));
     }
 
+    private void setListener() {
+        mAddToBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingPreferences.setShopPrefKey(getActivity(), mProduct.getId());
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, ShoppingFragment.newInstance(mProduct.getId()))
+                        .commit();
+            }
+        });
+    }
+
     private void setupSliderAdapter(List<ImagesItem> imagesItems) {
-        mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
+        mSliderAdapter = new SliderAdapter(getActivity(), imagesItems);
         mSliderView.setSliderAdapter(mSliderAdapter);
 
         //set indicator animation by using IndicatorAnimationType:
