@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapter.CardAdapter;
+import com.example.onlineshop.model.Customer;
 import com.example.onlineshop.model.ProductsItem;
 import com.example.onlineshop.nerwork.RequestService;
 import com.example.onlineshop.nerwork.RetrofitInstance;
@@ -69,7 +70,12 @@ public class ShoppingFragment extends Fragment {
         mFinalShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRepository.SendCustomer(new Repository.ServerCallbacks() {
+                    @Override
+                    public void onItemResponse(Customer item) {
 
+                    }
+                });
             }
         });
     }

@@ -2,19 +2,14 @@ package com.example.onlineshop.repository;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.onlineshop.model.CategoriesItem;
 import com.example.onlineshop.model.Customer;
-import com.example.onlineshop.model.MainResponse;
 import com.example.onlineshop.model.ProductsItem;
-import com.example.onlineshop.nerwork.NetworkParam;
 import com.example.onlineshop.nerwork.RequestService;
 import com.example.onlineshop.nerwork.RetrofitInstance;
 
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
